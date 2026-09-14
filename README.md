@@ -1,26 +1,29 @@
-# ChatWave — Native iOS
+# ChatWave Go
 
-An independent WhatsApp-inspired messaging app built as a **native iOS application with Swift**.
+A clean-room WhatsApp-style chat clone built with Go, WebSockets, Bootstrap, and an in-memory message store.
 
 ## Stack
-- Swift
-- SwiftUI
-- iOS SDK
-- Xcode
-- Native iOS architecture
+- Go 1.24
+- `net/http` REST server
+- Gorilla WebSocket for realtime messaging
+- Bootstrap 5 UI
+- No npm, Node.js, Swift, or Android build dependency in the server project
 
-## Included foundation
-- Chat list
-- Search
-- 1-to-1 conversations
-- Group-style conversations
-- Online/offline status
-- Unread badges
-- Message composer
-- Read-check UI
-- Calls and settings placeholders
-- Mobile-first dark UI
+## Run locally
 
-Open this repository in Xcode and run the iOS target on a simulator or device.
+```bash
+go mod download
+go run ./cmd/chatwave
+```
 
-This is an independent learning/portfolio project and does not use WhatsApp proprietary branding or assets.
+Open `http://localhost:8080`.
+
+## API
+- `GET /api/health` — service health
+- `GET /api/messages` — recent messages
+- `GET /ws` — realtime WebSocket channel
+
+## CI
+GitHub Actions runs `go mod download`, `go test ./...`, and `go build ./cmd/chatwave`.
+
+This is an independent learning project and is not affiliated with WhatsApp or Meta.
