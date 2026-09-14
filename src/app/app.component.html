@@ -1,21 +1,87 @@
-<div class="app">
-  <aside class="sidebar">
-    <header class="side-head"><b>ChatWave</b><div><button>＋</button><button>⋮</button></div></header>
-    <div class="search"><span>⌕</span><input [(ngModel)]="query" placeholder="Search or start new chat"></div>
-    <div class="tabs"><button class="active">All</button><button>Unread</button><button>Groups</button></div>
-    <div class="chat-list">
-      <button class="chat" *ngFor="let c of filtered" [class.selected]="selected===c.id" (click)="select(c.id)">
-        <img [src]="c.avatar" [alt]="c.name"><span class="chat-info"><strong>{{c.name}}</strong><small>{{c.last}}</small></span>
-        <span class="chat-meta"><small>{{c.time}}</small><em *ngIf="c.unread">{{c.unread}}</em></span>
+<div class="app d-flex vh-100 overflow-hidden">
+  <aside class="sidebar d-flex flex-column">
+    <header class="side-head d-flex align-items-center justify-content-between px-3">
+      <div class="d-flex align-items-center gap-2">
+        <div class="brand-dot">◉</div>
+        <strong class="fs-5">ChatWave</strong>
+      </div>
+      <div class="d-flex gap-1">
+        <button type="button" class="btn btn-sm btn-outline-light border-0 rounded-circle" aria-label="New chat">＋</button>
+        <button type="button" class="btn btn-sm btn-outline-light border-0 rounded-circle" aria-label="More options">⋮</button>
+      </div>
+    </header>
+
+    <div class="search input-group px-2 py-2">
+      <span class="input-group-text">⌕</span>
+      <input class="form-control" [(ngModel)]="query" placeholder="Search or start new chat" aria-label="Search chats">
+    </div>
+
+    <div class="tabs d-flex gap-2 px-2 pb-2">
+      <button type="button" class="btn btn-sm active">All</button>
+      <button type="button" class="btn btn-sm">Unread</button>
+      <button type="button" class="btn btn-sm">Groups</button>
+    </div>
+
+    <div class="chat-list flex-grow-1 overflow-auto">
+      <button type="button" class="chat d-flex align-items-center w-100 text-start border-0" *ngFor="let c of filtered"
+        [class.selected]="selected===c.id" (click)="select(c.id)">
+        <img [src]="c.avatar" [alt]="c.name" class="chat-avatar flex-shrink-0">
+        <span class="chat-info flex-grow-1 min-width-0 ms-3">
+          <strong>{{c.name}}</strong>
+          <small>{{c.last}}</small>
+        </span>
+        <span class="chat-meta ms-2">
+          <small>{{c.time}}</small>
+          <em *ngIf="c.unread">{{c.unread}}</em>
+        </span>
       </button>
     </div>
-    <footer><button>👥<span>Communities</span></button><button>⚙<span>Settings</span></button></footer>
+
+    <footer class="d-flex border-top p-2">
+      <button type="button" class="btn btn-sm flex-fill">👥 <span>Communities</span></button>
+      <button type="button" class="btn btn-sm flex-fill">⚙ <span>Settings</span></button>
+    </footer>
   </aside>
 
-  <main class="conversation" [class.show-mobile]="mobileChat">
-    <header class="conv-head"><button class="back" (click)="back()">←</button><img [src]="active.avatar" [alt]="active.name"><div class="person"><strong>{{active.name}}</strong><small>{{active.group ? '5 members' : active.online ? 'online' : 'last seen recently'}}</small></div><div class="conv-actions"><button>▣</button><button>☎</button><button>⌕</button><button>⋮</button></div></header>
-    <section class="messages"><div *ngFor="let m of messages[selected]" class="bubble-row" [class.in]="m.from==='in'" [class.out]="m.from==='out'"><div class="bubble"><span>{{m.text}}</span><small>{{m.time}} <b *ngIf="m.from==='out'">✓✓</b></small></div></div><div class="secure">🔒 Messages are end-to-end encrypted in this demo UI.</div></section>
-    <div class="composer"><button>☺</button><button>＋</button><input [(ngModel)]="text" (keydown.enter)="send()" placeholder="Type a message"><button class="send" *ngIf="text.trim()" (click)="send()">➤</button><button *ngIf="!text.trim()">🎙</button></div>
+  <main class="conversation flex-column flex-grow-1 min-width-0" [class.show-mobile]="mobileChat">
+    <header class="conv-head d-flex align-items-center gap-2 px-2 px-md-3">
+      <button type="button" class="back btn btn-sm btn-outline-light border-0" (click)="back()" aria-label="Back">←</button>
+      <img [src]="active.avatar" [alt]="active.name" class="conv-avatar flex-shrink-0">
+      <div class="person flex-grow-1 min-width-0">
+        <strong class="text-truncate">{{active.name}}</strong>
+        <small>{{active.group ? '5 members' : active.online ? 'online' : 'last seen recently'}}</small>
+      </div>
+      <div class="conv-actions d-flex gap-1">
+        <button type="button" class="btn btn-sm btn-outline-light border-0">▣</button>
+        <button type="button" class="btn btn-sm btn-outline-light border-0">☎</button>
+        <button type="button" class="btn btn-sm btn-outline-light border-0">⌕</button>
+        <button type="button" class="btn btn-sm btn-outline-light border-0">⋮</button>
+      </div>
+    </header>
+
+    <section class="messages flex-grow-1 overflow-auto">
+      <div *ngFor="let m of messages[selected]" class="bubble-row d-flex" [class.in]="m.from==='in'" [class.out]="m.from==='out'">
+        <div class="bubble">
+          <span>{{m.text}}</span>
+          <small>{{m.time}} <b *ngIf="m.from==='out'">✓✓</b></small>
+        </div>
+      </div>
+      <div class="secure alert alert-secondary py-1 px-2 mb-0 text-center">🔒 Messages are end-to-end encrypted in this demo UI.</div>
+    </section>
+
+    <div class="composer input-group p-2">
+      <button type="button" class="btn btn-outline-light border-0">☺</button>
+      <button type="button" class="btn btn-outline-light border-0">＋</button>
+      <input class="form-control" [(ngModel)]="text" (keydown.enter)="send()" placeholder="Type a message" aria-label="Type a message">
+      <button type="button" class="btn btn-outline-light border-0 send" *ngIf="text.trim()" (click)="send()">➤</button>
+      <button type="button" class="btn btn-outline-light border-0" *ngIf="!text.trim()">🎙</button>
+    </div>
   </main>
-  <section class="welcome"><div class="logo">◉</div><h1>ChatWave</h1><p>Private, fast messaging for your everyday conversations.</p><span>Built as an independent WhatsApp-style clone.</span></section>
+
+  <section class="welcome d-flex flex-column align-items-center justify-content-center text-center">
+    <div class="logo">◉</div>
+    <h1 class="h2">ChatWave</h1>
+    <p>Private, fast messaging for your everyday conversations.</p>
+    <span>Built with Angular 20 + Bootstrap 5.</span>
+  </section>
 </div>
