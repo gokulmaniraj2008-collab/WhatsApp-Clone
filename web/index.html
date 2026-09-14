@@ -1,0 +1,29 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>ChatWave — WhatsApp-style Chat</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="/static/styles.css">
+</head>
+<body>
+  <main class="app-shell">
+    <aside class="sidebar">
+      <div class="brand"><span class="brand-mark">C</span><span>ChatWave</span></div>
+      <div class="profile-card"><div class="avatar">G</div><div><strong>Gokul</strong><small>Online</small></div></div>
+      <div class="search-wrap"><input id="search" class="form-control" placeholder="Search chats"></div>
+      <div class="chat-item active"><div class="avatar">A</div><div class="chat-copy"><strong>AgriBot Team</strong><span>Welcome to ChatWave</span></div><time>Now</time></div>
+    </aside>
+    <section class="chat-panel">
+      <header class="chat-header"><div class="avatar">A</div><div><strong>AgriBot Team</strong><small id="status">Connecting…</small></div></header>
+      <div id="messages" class="messages"></div>
+      <form id="composer" class="composer">
+        <input id="message" autocomplete="off" class="form-control" placeholder="Type a message…">
+        <button class="btn btn-success" type="submit">Send</button>
+      </form>
+    </section>
+  </main>
+  <script src="/static/app.js"></script>
+</body>
+</html>
