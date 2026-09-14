@@ -1,0 +1,21 @@
+<div class="app">
+  <aside class="sidebar">
+    <header class="side-head"><b>ChatWave</b><div><button>＋</button><button>⋮</button></div></header>
+    <div class="search"><span>⌕</span><input [(ngModel)]="query" placeholder="Search or start new chat"></div>
+    <div class="tabs"><button class="active">All</button><button>Unread</button><button>Groups</button></div>
+    <div class="chat-list">
+      <button class="chat" *ngFor="let c of filtered" [class.selected]="selected===c.id" (click)="select(c.id)">
+        <img [src]="c.avatar" [alt]="c.name"><span class="chat-info"><strong>{{c.name}}</strong><small>{{c.last}}</small></span>
+        <span class="chat-meta"><small>{{c.time}}</small><em *ngIf="c.unread">{{c.unread}}</em></span>
+      </button>
+    </div>
+    <footer><button>👥<span>Communities</span></button><button>⚙<span>Settings</span></button></footer>
+  </aside>
+
+  <main class="conversation" [class.show-mobile]="mobileChat">
+    <header class="conv-head"><button class="back" (click)="back()">←</button><img [src]="active.avatar" [alt]="active.name"><div class="person"><strong>{{active.name}}</strong><small>{{active.group ? '5 members' : active.online ? 'online' : 'last seen recently'}}</small></div><div class="conv-actions"><button>▣</button><button>☎</button><button>⌕</button><button>⋮</button></div></header>
+    <section class="messages"><div *ngFor="let m of messages[selected]" class="bubble-row" [class.in]="m.from==='in'" [class.out]="m.from==='out'"><div class="bubble"><span>{{m.text}}</span><small>{{m.time}} <b *ngIf="m.from==='out'">✓✓</b></small></div></div><div class="secure">🔒 Messages are end-to-end encrypted in this demo UI.</div></section>
+    <div class="composer"><button>☺</button><button>＋</button><input [(ngModel)]="text" (keydown.enter)="send()" placeholder="Type a message"><button class="send" *ngIf="text.trim()" (click)="send()">➤</button><button *ngIf="!text.trim()">🎙</button></div>
+  </main>
+  <section class="welcome"><div class="logo">◉</div><h1>ChatWave</h1><p>Private, fast messaging for your everyday conversations.</p><span>Built as an independent WhatsApp-style clone.</span></section>
+</div>
