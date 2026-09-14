@@ -1,41 +1,26 @@
-# ChatWave — Angular WhatsApp-style Clone
+# ChatWave — Native iOS
 
-ChatWave is an independent, mobile-first messaging app built with **Angular + TypeScript**. It uses familiar chat UX patterns without WhatsApp proprietary assets or branding.
+An independent WhatsApp-inspired messaging app built as a **native iOS application with Swift**.
 
-## Angular stack
-- Angular 20 standalone components
-- TypeScript
-- Responsive mobile/desktop UI
-- Supabase-ready database schema
-- Capacitor Android packaging
-- GitHub Actions APK workflow
+## Stack
+- Swift
+- SwiftUI
+- iOS SDK
+- Xcode
+- Native iOS architecture
 
-## Current app
-- Chat list and search
-- 1-to-1 and group-style conversations
-- Online/offline states
+## Included foundation
+- Chat list
+- Search
+- 1-to-1 conversations
+- Group-style conversations
+- Online/offline status
 - Unread badges
-- Message composer and send interaction
+- Message composer
 - Read-check UI
-- Mobile conversation navigation
-- PWA manifest
+- Calls and settings placeholders
+- Mobile-first dark UI
 
-## Backend foundation
-`supabase/schema.sql` contains profiles, conversations, members, messages, RLS policies and a private media bucket. The next production stage is connecting Angular services to Supabase Auth, Realtime and Storage.
+Open this repository in Xcode and run the iOS target on a simulator or device.
 
-## Run locally
-```bash
-npm install
-npm run dev
-```
-
-## Production build
-```bash
-npm run build
-```
-
-## Android
-The Capacitor configuration targets `com.gokul.chatwave`. GitHub Actions builds a debug APK on pushes to `main` and supports manual runs.
-
-## Status
-**Angular migration complete for the frontend foundation.** Persistent authenticated realtime messaging is intentionally not claimed until the Supabase client wiring and end-to-end verification are completed.
+This is an independent learning/portfolio project and does not use WhatsApp proprietary branding or assets.
