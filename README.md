@@ -1,17 +1,27 @@
-# ChatWave — WhatsApp-style Clone
+# ChatWave — Angular WhatsApp-style Clone
 
-A mobile-first, independent messaging application inspired by familiar chat UX patterns. It does not use WhatsApp proprietary assets or branding.
+ChatWave is an independent, mobile-first messaging app built with **Angular + TypeScript**. It uses familiar chat UX patterns without WhatsApp proprietary assets or branding.
 
-## Included
-- Responsive chat list and conversation UI
-- Search, unread badges, groups and presence states
-- Send-message interaction with timestamps/read-check UI
+## Angular stack
+- Angular 20 standalone components
+- TypeScript
+- Responsive mobile/desktop UI
+- Supabase-ready database schema
+- Capacitor Android packaging
+- GitHub Actions APK workflow
+
+## Current app
+- Chat list and search
+- 1-to-1 and group-style conversations
+- Online/offline states
+- Unread badges
+- Message composer and send interaction
+- Read-check UI
 - Mobile conversation navigation
 - PWA manifest
-- Capacitor Android configuration
-- GitHub Actions debug APK build
-- Supabase-ready schema for profiles, conversations, members and messages
-- Row Level Security policies and private media bucket
+
+## Backend foundation
+`supabase/schema.sql` contains profiles, conversations, members, messages, RLS policies and a private media bucket. The next production stage is connecting Angular services to Supabase Auth, Realtime and Storage.
 
 ## Run locally
 ```bash
@@ -19,14 +29,13 @@ npm install
 npm run dev
 ```
 
-## Supabase
-1. Create a Supabase project.
-2. Run `supabase/schema.sql` in the SQL editor.
-3. Copy `.env.example` to `.env.local` and add the project URL and anon key.
-4. Connect the client to Supabase Auth/Realtime/Storage before production use.
+## Production build
+```bash
+npm run build
+```
 
 ## Android
-The GitHub Actions workflow builds `app-debug.apk` using Capacitor. Open Actions → Build Android APK to run it manually, or push to `main`.
+The Capacitor configuration targets `com.gokul.chatwave`. GitHub Actions builds a debug APK on pushes to `main` and supports manual runs.
 
-## Production readiness
-The repository currently contains a polished functional frontend/demo state and backend schema. Persistent authenticated realtime messaging requires wiring the frontend to the supplied Supabase environment variables and enabling the desired Auth providers.
+## Status
+**Angular migration complete for the frontend foundation.** Persistent authenticated realtime messaging is intentionally not claimed until the Supabase client wiring and end-to-end verification are completed.
